@@ -127,6 +127,18 @@ public class PurchasesController {
 		}
 		
 	}
+	//-----------------------------------------------------------------------------------------------------
+	public List<Purchase> getCustomersPurchase(long customerId) throws ApplicationException {
+
+		try {
+			return  purchasesDao.findByCustomerId(customerId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, ErrorTypes.PURCHASE_FAILED_TO_GET, "Failed to get  purchase");
+
+		}
+
+	}
 
 
 }

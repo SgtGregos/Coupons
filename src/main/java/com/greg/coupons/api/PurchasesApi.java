@@ -76,5 +76,14 @@ public class PurchasesApi {
 		Collection<Coupon> couponsList = this.purchasesController.getCustomersCoupons(customerId);
 		return couponsList;
 	}
+	//-----------------------------------------------------------------------------------------------------
+	@GetMapping("/customersPurchases")
+	public List<Purchase> getCustomersPurchases(HttpServletRequest request) throws Exception{
+		
+		UserLoginData userLoginData = (UserLoginData) request.getAttribute("userLoginData");
+		long customerId = userLoginData.getId();
+		return this.purchasesController.getCustomersPurchase(customerId);
+	}
+	//-----------------------------------------------------------------------------------------------------
 }
 
