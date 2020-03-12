@@ -48,10 +48,10 @@ public class CustomersApi {
 	}
 	//-----------------------------------------------------------------------------------------------------
 	// http://localhost:8080/customers/12
-	@DeleteMapping("{customerId}")
-	public void deleteCustomer(@PathVariable("customerId") long id) throws Exception {
-		this.customersController.deleteCustomer(id);
-	}
+//	@DeleteMapping("{customerId}")
+//	public void deleteCustomer(@PathVariable("customerId") long id) throws Exception {
+//		this.customersController.deleteCustomer(id);
+//	}
 	//-----------------------------------------------------------------------------------------------------
 	@GetMapping
 	public List<Customer> getAllCustomers(Customer customer) throws Exception{
@@ -60,6 +60,11 @@ public class CustomersApi {
 		
 	}
 	//-----------------------------------------------------------------------------------------------------
-	
+	@DeleteMapping("/deleteAccount")
+	public void deleteCustomer(HttpServletRequest request) throws Exception {
+		UserLoginData userLoginData = (UserLoginData) request.getAttribute("userLoginData");
+		long customerId = userLoginData.getId();
+		this.customersController.deleteCustomer(customerId);
+	}
 
 }
