@@ -2,6 +2,8 @@ package com.greg.coupons.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greg.coupons.data.internals.SuccessfulLoginData;
+import com.greg.coupons.data.internals.UserLoginData;
 import com.greg.coupons.data.internals.UserLoginDetails;
 import com.greg.coupons.entities.User;
 import com.greg.coupons.logic.UsersController;
@@ -58,4 +61,10 @@ public class UsersApi {
 		return this.usersController.getAllUsers();
 	}
 	//-----------------------------------------------------------------------------------------------------
+	@PutMapping("/enterEMail")
+	public void enterEMail(@RequestBody String eMail, HttpServletRequest request) throws Exception {
+		UserLoginData userLoginData = (UserLoginData) request.getAttribute("userLoginData");
+		long userId = userLoginData.getId();
+		this.usersController.enterEMail(eMail,userId );
+	}
 }

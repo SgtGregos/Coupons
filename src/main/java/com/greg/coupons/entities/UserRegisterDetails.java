@@ -5,10 +5,12 @@ public class UserRegisterDetails {
 	
     public String  userName;   
     public String password;
+    public String eMail;
     
-	public UserRegisterDetails(String userName, String password) {
+	public UserRegisterDetails(String userName, String password, String eMail) {
 		this.userName = userName;
 		this.password = password;
+		this.eMail = eMail;
 	}
 	
 	public UserRegisterDetails() {
@@ -27,10 +29,19 @@ public class UserRegisterDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+
+	public String geteMail() {
+		return eMail;
+	}
+
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
+	}
 
 	@Override
 	public String toString() {
-		return "UserRegisterDetails [userName=" + userName + ", password=" + password + "]";
+		return "UserRegisterDetails [userName=" + userName + ", password=" + password + ", eMail=" + eMail + "]";
 	}    	
     
     

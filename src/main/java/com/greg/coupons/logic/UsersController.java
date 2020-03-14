@@ -2,11 +2,13 @@ package com.greg.coupons.logic;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.greg.coupons.Utils.ApplicationException;
+import com.greg.coupons.Utils.Validations;
 import com.greg.coupons.dao.IUsersDao;
 import com.greg.coupons.data.internals.SuccessfulLoginData;
 import com.greg.coupons.data.internals.UserLoginData;
@@ -23,6 +25,9 @@ public class UsersController {
 
 	@Autowired
 	private CacheController cacheController;
+	
+	@Autowired
+	private Validations validations;
 	//-------------constructor----------------------------------------------------------------------------------------
 	public UsersController() {
 
@@ -31,6 +36,9 @@ public class UsersController {
 	public long createUser(User user) throws ApplicationException{
 		if(this.usersDao.existsByUserName(user.getUserName())) {
 			throw new ApplicationException(ErrorTypes.USER_ALREADY_EXISTS, "user already exists");
+		}
+		if(!validations.isValid(user.geteMail())) {
+			throw new ApplicationException(ErrorTypes.GENERAL_ERROR, "Invalid Email");
 		}
 		try {
 			usersDao.save(user);
@@ -47,6 +55,9 @@ public class UsersController {
 	public void updateUser(User user) throws ApplicationException{
 		if(this.usersDao.findById(user.getUserId()) == null) {
 			throw new ApplicationException(ErrorTypes.USER_FAILED_TO_UPDATE, "could'nt update user because user not found");
+		}
+		if(!validations.isValid(user.geteMail())) {
+			throw new ApplicationException(ErrorTypes.GENERAL_ERROR, "Invalid Email");
 		}
 		try {
 			this.usersDao.save(user);
@@ -114,7 +125,7 @@ public class UsersController {
 		//cacheController.put(token+"", userLoginData);
 		cacheController.put(String.valueOf(token), userLoginData);
 
-		return new SuccessfulLoginData(token, user.getUserType());
+		return new SuccessfulLoginData(token, user.getUserType(), user.geteMail());
 	}
 
 	private int generateToken(UserLoginDetails userLoginDetails) {
@@ -122,4 +133,19 @@ public class UsersController {
 		return text.hashCode();
 	}
 	//-----------------------------------------------------------------------------------------------------
+	public void enterEMail(String eMail, long userId) throws ApplicationException{
+		if(!validations.isValid(eMail)) {
+			throw new ApplicationException(ErrorTypes.GENERAL_ERROR, "Invalid EMail");
+		}
+		User user = this.usersDao.findById(userId).get();
+		user.seteMail(eMail);
+		this.usersDao.save(user);
+		
+	}
+	
+	
+	
+	
+	
+
 }

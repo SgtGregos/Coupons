@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.greg.coupons.Utils.ApplicationException;
+import com.greg.coupons.Utils.Validations;
 import com.greg.coupons.dao.ICustomersDao;
 import com.greg.coupons.dao.IUsersDao;
 import com.greg.coupons.entities.Customer;
@@ -23,6 +24,8 @@ public class CustomerController {
 	@Autowired
 	private IUsersDao usersDao;
 
+	@Autowired
+	private Validations validations;
 	//-------------constructor----------------------------------------------------------------------------------------
 	public CustomerController() {
 
@@ -33,6 +36,7 @@ public class CustomerController {
 		User user = new User();
 		user.setPassword(customerRegisterDetails.getUserRegisterDetails().getPassword());
 		user.setUserName(customerRegisterDetails.getUserRegisterDetails().getUserName());
+		user.seteMail(customerRegisterDetails.getUserRegisterDetails().geteMail());
 		user.setUserPhone(customerRegisterDetails.getPhone());
 		user.setUserType(UserType.CUSTOMER);
 		
@@ -49,6 +53,9 @@ public class CustomerController {
 		if (customer.getAmountOfKids() < 0) {
 			throw new ApplicationException(ErrorTypes.CUSTOMER_FAILED_TO_CREATE, "can't have less than 0 kids");
 		}
+		if(!validations.isValid(user.geteMail())) {
+			throw new ApplicationException(ErrorTypes.GENERAL_ERROR, "Invalid Email");
+		}
 		try {
 			customersDao.save(customer);
 
@@ -64,6 +71,9 @@ public class CustomerController {
 	public void updateCustomer(Customer customer) throws ApplicationException{
 		if (this.customersDao.existsByCustomerId(customer.getCustomerId()) == false) {
 			throw new ApplicationException(ErrorTypes.CUSTOMER_FAILED_TO_UPDATE, "cant update customer because customer doenst exists");
+		}
+		if(!validations.isValid(customer.getUser().geteMail())) {
+			throw new ApplicationException(ErrorTypes.GENERAL_ERROR, "Invalid Email");
 		}
 		customer.getUser().setCompanyId(null);
 		try {

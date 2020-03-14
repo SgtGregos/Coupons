@@ -29,6 +29,9 @@ public class User implements Serializable{
 	@Column(name="USERNAME", unique=true, nullable=false)
 	private String userName;
 	
+	@Column(name="EMAIL", unique=true, nullable=false)
+	private String eMail;
+	
 	@Column(name="PASSWORD", nullable=false)
 	private String password;
 	
@@ -69,6 +72,17 @@ public class User implements Serializable{
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
+	
+	public String geteMail() {
+		return eMail;
+	}
+
+
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
+	}
+
 
 	public String getPassword() {
 		return password;
@@ -121,9 +135,9 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", userType=" + userType
-				+ ", userPhone=" + userPhone + ", companyId=" + companyId + ", company=" + company + ", customer="
-				+ customer + "]";
+		return "User [userId=" + userId + ", userName=" + userName + ", eMail=" + eMail + ", password=" + password
+				+ ", userType=" + userType + ", userPhone=" + userPhone + ", companyId=" + companyId + ", company="
+				+ company + ", customer=" + customer + "]";
 	}
 	
 	
