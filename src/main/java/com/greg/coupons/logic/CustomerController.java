@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 
 import com.greg.coupons.Utils.ApplicationException;
 import com.greg.coupons.dao.ICustomersDao;
+import com.greg.coupons.dao.IUsersDao;
 import com.greg.coupons.entities.Customer;
 import com.greg.coupons.entities.CustomerRegisterDetails;
 import com.greg.coupons.entities.User;
@@ -18,6 +19,9 @@ public class CustomerController {
 	//------------class variables-----------------------------------------------------------------------------------------
 	@Autowired
 	private ICustomersDao customersDao;
+	
+	@Autowired
+	private IUsersDao usersDao;
 
 	//-------------constructor----------------------------------------------------------------------------------------
 	public CustomerController() {
@@ -86,7 +90,9 @@ public class CustomerController {
 	//-----------------------------------------------------------------------------------------------------
 	public Customer getCustomer(Long id) throws ApplicationException{
 		try {
-			return this.customersDao.findById(id).get();
+		Customer customer =	this.customersDao.findById(id).get();
+		customer.getUser().setPassword(null);
+			return customer;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, ErrorTypes.CUSTOMER_FAILED_TO_GET, "Failed to get  customer");
@@ -104,5 +110,14 @@ public class CustomerController {
 		}
 	}
 	//-----------------------------------------------------------------------------------------------------
+	public boolean checkPassword(long customerId, String password) {
+		User user = this.usersDao.findById(customerId).get();
+		
+		if(!user.getPassword().equals(password) ) {
+			return false;
+		}
+		return true;
+		
+	}
 	
 }
