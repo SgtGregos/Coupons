@@ -16,6 +16,8 @@ public interface IUsersDao extends CrudRepository<User, Long>{
 
 	public void findCompanyIdByUserId(long customerId);
 
+	public User findByEMailAndPassword(String geteMail, String password);
+
 
 
 }

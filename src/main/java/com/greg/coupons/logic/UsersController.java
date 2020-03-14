@@ -25,7 +25,7 @@ public class UsersController {
 
 	@Autowired
 	private CacheController cacheController;
-	
+
 	@Autowired
 	private Validations validations;
 	//-------------constructor----------------------------------------------------------------------------------------
@@ -108,11 +108,20 @@ public class UsersController {
 
 	public SuccessfulLoginData login(UserLoginDetails userLoginDetails ) throws ApplicationException {
 		User user;
+		userLoginDetails.seteMail(userLoginDetails.getUserName());
 		try {
-			 user =  this.usersDao.findByUserNameAndPassword(userLoginDetails.getUserName(), userLoginDetails.getPassword());
+			user =  this.usersDao.findByEMailAndPassword(userLoginDetails.geteMail(), userLoginDetails.getPassword());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, ErrorTypes.GENERAL_ERROR, "Failed to login");
+		}
+		if(user == null) {
+			try {
+				user =  this.usersDao.findByUserNameAndPassword(userLoginDetails.getUserName(), userLoginDetails.getPassword());
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new ApplicationException(e, ErrorTypes.GENERAL_ERROR, "Failed to login");
+			}
 		}
 		int token = generateToken(userLoginDetails);
 
@@ -140,12 +149,12 @@ public class UsersController {
 		User user = this.usersDao.findById(userId).get();
 		user.seteMail(eMail);
 		this.usersDao.save(user);
-		
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 }
