@@ -5,18 +5,15 @@ import com.greg.coupons.enums.UserType;
 public class CompanyUserRegisterDetails {
 
 
-	public UserType  userType;
-	public long companyId ;
-	public long userPhone ;
+	private UserType  userType;
+	private long companyId ;
+	private long userPhone ;
+	private String eMail;
 
 	public UserRegisterDetails userRegisterDetails;
 
 	public CompanyUserRegisterDetails() {
-		super();
-		this.userType = userType;
-		this.companyId = companyId;
-		this.userPhone = userPhone;
-		this.userRegisterDetails = userRegisterDetails;
+		
 	}
 
 	public UserType getUserType() {
@@ -50,6 +47,21 @@ public class CompanyUserRegisterDetails {
 	public void setUserRegisterDetails(UserRegisterDetails userRegisterDetails) {
 		this.userRegisterDetails = userRegisterDetails;
 	}
+
+	public String geteMail() {
+		return eMail;
+	}
+
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
+	}
+
+	@Override
+	public String toString() {
+		return "CompanyUserRegisterDetails [userType=" + userType + ", companyId=" + companyId + ", userPhone="
+				+ userPhone + ", eMail=" + eMail + ", userRegisterDetails=" + userRegisterDetails + "]";
+	}
+	
 	
 	
 

@@ -114,6 +114,11 @@ public class CompaniesController {
 		user.setUserPhone(companyUserRegisterDetails.getUserPhone());
 		user.setPassword(companyUserRegisterDetails.getUserRegisterDetails().getPassword());
 		user.setUserName(companyUserRegisterDetails.getUserRegisterDetails().getUserName());
+		if(companyUserRegisterDetails.geteMail() == null) {
+			user.seteMail("");
+		}else {
+			user.seteMail(companyUserRegisterDetails.geteMail());
+		}
 		
 		try {
 			this.userDao.save(user);
