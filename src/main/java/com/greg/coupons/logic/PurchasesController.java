@@ -43,13 +43,12 @@ public class PurchasesController {
 //		}
 		
 		System.out.println("yessss" + purchase);
-		Coupon coupon = this.couponsController.getCoupon(purchase.getCouponId());
+		Coupon coupon = this.couponsController.getCoupon(purchase.getCoupon().getCouponId());
 		
 		System.out.println("yestus" + coupon.getCouponName());
 		purchase.setCouponName(coupon.getCouponName());
 		purchase.setCustomerId(customerId);
 		purchase.setCouponPrice(coupon.getCouponPrice());
-		purchase.setCouponId(coupon.getCouponId());
 		
 		
 		try {
@@ -102,7 +101,8 @@ public class PurchasesController {
 	public List<Purchase> getAllPurchases(Purchase purchase) throws ApplicationException {
 
 		try {
-			return (List<Purchase>) this.purchasesDao.findAll();
+			List<Purchase> purchaseList =  (List<Purchase>) this.purchasesDao.findAll();
+			return purchaseList;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, ErrorTypes.PURCHASE_FAILED_TO_GET_ALL, "Failed to get all  purchase");
@@ -117,7 +117,7 @@ public class PurchasesController {
 		try {
 			List <Purchase> purchases =  this.purchasesDao.findCouponByCustomerId(customerId);
 		for (Purchase purchase : purchases) {
-			coupons. add(couponsDao. findById(purchase.getCouponId() ).get() );
+			coupons. add(couponsDao. findById(purchase.getCoupon().getCouponId() ).get() );
 		}
 		return coupons;
 		} catch (Exception e) {

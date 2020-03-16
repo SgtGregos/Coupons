@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.greg.coupons.Utils.ApplicationException;
 import com.greg.coupons.data.internals.SuccessfulLoginData;
 import com.greg.coupons.data.internals.UserLoginData;
 import com.greg.coupons.data.internals.UserLoginDetails;
+import com.greg.coupons.entities.CompanyUserRegisterDetails;
 import com.greg.coupons.entities.User;
+import com.greg.coupons.entities.UserRegisterDetails;
 import com.greg.coupons.logic.UsersController;
 
 @RestController
@@ -66,5 +69,10 @@ public class UsersApi {
 		UserLoginData userLoginData = (UserLoginData) request.getAttribute("userLoginData");
 		long userId = userLoginData.getId();
 		this.usersController.enterEMail(eMail,userId );
+	}
+	//-----------------------------------------------------------------------------------------------------
+	@PostMapping("/createAdminUser")
+	public void createCompanyUser(@RequestBody User  userRegisterDetails) throws ApplicationException{
+		this.usersController.createAdminUser(userRegisterDetails);
 	}
 }

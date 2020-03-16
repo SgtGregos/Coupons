@@ -36,8 +36,6 @@ public class Coupon {
 	private long couponId;
 	
 	
-	@Column(name = "COMPANY_ID", nullable = false)
-	private long companyId;
 	
 	@Column(name = "COUPON_PRICE", nullable = false)
 	private long couponPrice;
@@ -51,12 +49,12 @@ public class Coupon {
 	@UpdateTimestamp
 	@Column(name = "COUPON_CREATION_DATE", nullable = false)
 	private Date couponCreationDate;
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	
+	@ManyToOne
 	private Company company;
 	
 	@JsonIgnore
-	@OneToMany (mappedBy = "couponId", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@OneToMany (cascade = CascadeType.REMOVE, fetch = FetchType.EAGER,mappedBy = "coupon")
 	private List <Purchase> purchase;
 	
 	
@@ -109,12 +107,6 @@ public class Coupon {
 		this.company = company;
 	}
 	
-	public long getCompanyId() {
-		return companyId;
-	}
-	public void setCompanyId(long companyId) {
-		this.companyId = companyId;
-	}
 	public List<Purchase> getPurchase() {
 		return purchase;
 	}

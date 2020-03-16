@@ -37,7 +37,7 @@ public class CouponsController {
 		
 		
 		User user = this.usersController.getUser(customerId);
-		coupon.setCompanyId(user.getCompanyId());
+		coupon.getCompany().setCompanyId(user.getCompanyId());
 		
 		
 		try {

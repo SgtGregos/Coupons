@@ -13,7 +13,9 @@ import com.greg.coupons.dao.IUsersDao;
 import com.greg.coupons.data.internals.SuccessfulLoginData;
 import com.greg.coupons.data.internals.UserLoginData;
 import com.greg.coupons.data.internals.UserLoginDetails;
+import com.greg.coupons.entities.CompanyUserRegisterDetails;
 import com.greg.coupons.entities.User;
+import com.greg.coupons.entities.UserRegisterDetails;
 import com.greg.coupons.enums.ErrorTypes;
 import com.greg.coupons.enums.UserType;
 
@@ -151,6 +153,27 @@ public class UsersController {
 		this.usersDao.save(user);
 
 	}
+	//-----------------------------------------------------------------------------------------------------
+	public void createAdminUser(User userRegisterDetails) throws ApplicationException {
+		User user = new User();
+		user.setUserType(UserType.ADMIN);
+		user.setUserPhone(userRegisterDetails.getUserPhone());
+		user.setPassword(userRegisterDetails.getPassword());
+		user.setUserName(userRegisterDetails.getUserName());
+		if(userRegisterDetails.geteMail() == null) {
+			user.seteMail("");
+		}else {
+			user.seteMail(userRegisterDetails.geteMail());
+		}
+		
+		try {
+			this.usersDao.save(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, ErrorTypes.COMPANY_FAILED_TO_CREATE, "Failed to create new company");
+		}
+	}
+	
 
 
 

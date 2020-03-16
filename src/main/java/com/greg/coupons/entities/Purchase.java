@@ -22,9 +22,6 @@ public class Purchase {
 	@Column(name = "CUSTOMER_ID", nullable = false)
 	private long customerId;
 	
-	@Column(name = "COUPON_ID", nullable = false)
-	private long couponId;
-	
 	@Id
 	@GeneratedValue
 	private long purchaseId;
@@ -42,8 +39,7 @@ public class Purchase {
 	@Column(name = "COUPON_NAME", nullable = false)
 	private String couponName;
 	
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@ManyToOne
 	private Coupon coupon;
 	//-------------constructor----------------------------------------------------------------------------------------
 	public Purchase() {
@@ -55,12 +51,6 @@ public class Purchase {
 	}
 	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
-	}
-	public long getCouponId() {
-		return couponId;
-	}
-	public void setCouponId(long couponId) {
-		this.couponId = couponId;
 	}
 	public long getPurchaseId() {
 		return purchaseId;
@@ -88,13 +78,13 @@ public class Purchase {
 		this.couponName = couponName;
 	}
 
+	
 	public Coupon getCoupon() {
 		return coupon;
 	}
 	public void setCoupon(Coupon coupon) {
 		this.coupon = coupon;
 	}
-	
 	public long getCouponPrice() {
 		return couponPrice;
 	}
@@ -103,7 +93,7 @@ public class Purchase {
 	}
 	@Override
 	public String toString() {
-		return "Purchase [customerId=" + customerId + ", couponId=" + couponId + ", purchaseId=" + purchaseId
+		return "Purchase [customerId=" + customerId + ", purchaseId=" + purchaseId
 				+ ", purchaseAmount=" + purchaseAmount + ", couponPrice=" + couponPrice + ", purchaseDate="
 				+ purchaseDate + ", couponName=" + couponName + ", coupon=" + coupon + "]";
 	}

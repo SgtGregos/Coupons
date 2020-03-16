@@ -3,13 +3,13 @@ package com.greg.coupons.dao;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.greg.coupons.entities.Coupon;
 
-
+@Repository
 public interface ICouponsDao extends CrudRepository<Coupon, Long> {
 
-public  List<Coupon> findByCompanyId(long id);
 
 public  boolean existsByCouponId(long id);
 

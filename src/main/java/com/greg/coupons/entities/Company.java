@@ -47,7 +47,7 @@ public class Company {
 	
 	
 	@JsonIgnore
-	@OneToMany ( mappedBy = "companyId", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+	@OneToMany ( mappedBy = "company", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List <Coupon> coupon;
 	
 	
