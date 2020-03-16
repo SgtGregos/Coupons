@@ -65,4 +65,18 @@ public class CompaniesApi {
 	public void createCompanyUser(@RequestBody CompanyUserRegisterDetails companyUserRegisterDetails) throws ApplicationException{
 		this.companiesController.createCompanyUser(companyUserRegisterDetails);
 	}
+	//-----------------------------------------------------------------------------------------------------
+	@GetMapping("/getAllCompaniesNames")
+	public List<String> getAllCompaniesNames() throws Exception{
+		
+		return this.companiesController.getAllCompaniesNames();
+		
+	}
+	//-----------------------------------------------------------------------------------------------------
+	@PutMapping("/deleteSelectedCompany")
+	public void deleteSelectedCompany(@RequestBody String companyName) throws Exception{
+		
+	 this.companiesController.deleteSelectedCompany(companyName);
+		
+	}
 }

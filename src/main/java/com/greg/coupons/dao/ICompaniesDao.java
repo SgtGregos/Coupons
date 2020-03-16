@@ -12,6 +12,8 @@ public interface ICompaniesDao  extends CrudRepository<Company, Long>{
 	
 	public boolean existsByCompanyId(long companyId);
 
+	public Company getCompanyIdByCompanyName(String companyName);
+
 	
 	
 }

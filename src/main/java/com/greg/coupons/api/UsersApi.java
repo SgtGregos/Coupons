@@ -91,5 +91,19 @@ public class UsersApi {
 
 		return this.usersController.checkPassword(customerId, password);
 	}
+	//-----------------------------------------------------------------------------------------------------
+	@GetMapping("/getUserIdAndType")
+	public List<String> getUserIdAndType() throws Exception{
+		
+		return this.usersController.getUserIdAndType();
+		
+	}
+	//-----------------------------------------------------------------------------------------------------
+		@PutMapping("/deleteSelectedUser")
+		public void deleteSelectedUser(@RequestBody String userIdAndType) throws Exception{
+			
+		 this.usersController.deleteSelectedUser(userIdAndType);
+			
+		}
 
 }

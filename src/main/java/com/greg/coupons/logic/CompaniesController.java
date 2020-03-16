@@ -1,6 +1,7 @@
 package com.greg.coupons.logic;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -126,6 +127,40 @@ public class CompaniesController {
 			e.printStackTrace();
 			throw new ApplicationException(e, ErrorTypes.COMPANY_FAILED_TO_CREATE, "Failed to create new company");
 		}
+	}
+	//-----------------------------------------------------------------------------------------------------
+	public List<String> getAllCompaniesNames() throws ApplicationException {
+		List<Company> companyList =	 (List<Company>) this.companiesDao.findAll();
+
+		List<String> userIdAndType = new ArrayList<String>();
+		for (Company temp : companyList) {
+				userIdAndType.add(temp.getCompanyName());
+				
+
+		}
+		try {
+			return userIdAndType;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, ErrorTypes.COMPANY_FAILED_TO_GET_ALL, "Failed to get all  company");
+
+		}
+		
+		
+	}
+	//-----------------------------------------------------------------------------------------------------
+	public void deleteSelectedCompany(String companyName) throws ApplicationException {
+		
+		Company company = this.companiesDao.getCompanyIdByCompanyName(companyName);
+		long companyId = company.getCompanyId();
+
+		try {
+			this.companiesDao.deleteById(companyId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, ErrorTypes.USER_FAILED_TO_DELETE, "Failed to delete  user");
+
+		}		
 	}
 
 }

@@ -1,8 +1,11 @@
 package com.greg.coupons.logic;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,7 @@ import com.greg.coupons.entities.CompanyUserRegisterDetails;
 import com.greg.coupons.entities.Customer;
 import com.greg.coupons.entities.User;
 import com.greg.coupons.entities.UserRegisterDetails;
+import com.greg.coupons.enums.CompanyAndCouponType;
 import com.greg.coupons.enums.ErrorTypes;
 import com.greg.coupons.enums.UserType;
 
@@ -85,8 +89,8 @@ public class UsersController {
 	//-----------------------------------------------------------------------------------------------------
 	public User getUser(long id) throws ApplicationException{
 		try {
-				User user = this.usersDao.findById(id).get();
-				user.setPassword(null);
+			User user = this.usersDao.findById(id).get();
+			user.setPassword(null);
 			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -168,7 +172,7 @@ public class UsersController {
 		}else {
 			user.seteMail(userRegisterDetails.geteMail());
 		}
-		
+
 		try {
 			this.usersDao.save(user);
 		} catch (Exception e) {
@@ -178,19 +182,52 @@ public class UsersController {
 	}
 	//-----------------------------------------------------------------------------------------------------
 	public boolean checkPassword(long customerId, String password) {
-User user = this.usersDao.findById(customerId).get();
-		
+		User user = this.usersDao.findById(customerId).get();
+
 		if(!user.getPassword().equals(password) ) {
 			return false;
 		}
 		return true;
 	}
 	//-----------------------------------------------------------------------------------------------------
-	
+	public List<String> getUserIdAndType() throws ApplicationException {
+
+		List<User> userList =	 (List<User>) this.usersDao.findAll();
+
+		List<String> userIdAndType = new ArrayList<String>();
+		for (User temp : userList) {
+			if(temp.getUserType().toString() != "CUSTOMER") {
+				userIdAndType.add(temp.getUserId() + " " + temp.getUserType().toString());
+				
+			}
+
+		}
+		try {
+			return userIdAndType;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, ErrorTypes.COMPANY_FAILED_TO_GET_ALL, "Failed to get all  company");
+
+		}
+	}
+	//-----------------------------------------------------------------------------------------------------
+	public void  deleteSelectedUser(String userIdAndType) throws ApplicationException{
+
+		String[] splited = userIdAndType.split("\\s+");
+
+		long userId = Long.parseLong(splited[0]);
+
+		try {
+			this.usersDao.deleteById(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, ErrorTypes.USER_FAILED_TO_DELETE, "Failed to delete  user");
+
+		}
 
 
 
 
 
-
+	}
 }
