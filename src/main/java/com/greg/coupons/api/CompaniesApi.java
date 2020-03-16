@@ -2,6 +2,8 @@ package com.greg.coupons.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greg.coupons.Utils.ApplicationException;
+import com.greg.coupons.data.internals.UserLoginData;
 import com.greg.coupons.entities.Company;
 import com.greg.coupons.entities.CompanyUserRegisterDetails;
+import com.greg.coupons.entities.User;
 import com.greg.coupons.logic.CompaniesController;
 
 @RestController
@@ -79,4 +83,13 @@ public class CompaniesApi {
 	 this.companiesController.deleteSelectedCompany(companyName);
 		
 	}
+	//-----------------------------------------------------------------------------------------------------
+	@GetMapping("/getCompanyDetails")
+	public Company getUser(HttpServletRequest request) throws Exception {
+			UserLoginData userLoginData = (UserLoginData) request.getAttribute("userLoginData");
+			long userId = userLoginData.getId();
+		
+		return this.companiesController.getCompany(userId);
+	}
+		//-----------------------------------------------------------------------------------------------------
 }

@@ -73,9 +73,14 @@ public class CompaniesController {
 		}
 	}
 	//-----------------------------------------------------------------------------------------------------
-	public Company getCompany(Long id) throws ApplicationException{
+	public Company getCompany(Long userId) throws ApplicationException{
+		
+		User user = this.userDao.findById(userId).get();
+		
+		long companyId = user.getCompanyId();
+		
 		try {
-			return this.companiesDao.findById(id).get();
+			return this.companiesDao.findById(companyId).get();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, ErrorTypes.COMPANY_FAILED_TO_GET, "Failed to get  company");
