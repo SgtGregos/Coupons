@@ -4,12 +4,12 @@ import com.greg.coupons.enums.UserType;
 
 public class CustomerRegisterDetails {
 
-	public UserType userType;
-	public int  amountOfKids;
-	public boolean isMarried;
-	public long phone;
-	public String customerFirstName;
-	public String customerLastName;
+	private UserType userType;
+	private int  amountOfKids;
+	private boolean isMarried;
+	private long phone;
+	private String customerFirstName;
+	private String customerLastName;
 
 	public UserRegisterDetails user;
 

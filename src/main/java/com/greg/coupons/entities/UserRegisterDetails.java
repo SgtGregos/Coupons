@@ -3,9 +3,9 @@ package com.greg.coupons.entities;
 public class UserRegisterDetails {
 
 	
-    public String  userName;   
-    public String password;
-    public String eMail;
+	private String  userName;   
+	private String password;
+	private String eMail;
     
 	public UserRegisterDetails(String userName, String password, String eMail) {
 		this.userName = userName;
