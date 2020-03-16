@@ -14,6 +14,7 @@ import com.greg.coupons.data.internals.SuccessfulLoginData;
 import com.greg.coupons.data.internals.UserLoginData;
 import com.greg.coupons.data.internals.UserLoginDetails;
 import com.greg.coupons.entities.CompanyUserRegisterDetails;
+import com.greg.coupons.entities.Customer;
 import com.greg.coupons.entities.User;
 import com.greg.coupons.entities.UserRegisterDetails;
 import com.greg.coupons.enums.ErrorTypes;
@@ -84,7 +85,9 @@ public class UsersController {
 	//-----------------------------------------------------------------------------------------------------
 	public User getUser(long id) throws ApplicationException{
 		try {
-			return this.usersDao.findById(id).get();
+				User user = this.usersDao.findById(id).get();
+				user.setPassword(null);
+			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, ErrorTypes.USER_FAILED_TO_GET, "Failed to get  user");
@@ -173,6 +176,16 @@ public class UsersController {
 			throw new ApplicationException(e, ErrorTypes.COMPANY_FAILED_TO_CREATE, "Failed to create new company");
 		}
 	}
+	//-----------------------------------------------------------------------------------------------------
+	public boolean checkPassword(long customerId, String password) {
+User user = this.usersDao.findById(customerId).get();
+		
+		if(!user.getPassword().equals(password) ) {
+			return false;
+		}
+		return true;
+	}
+	//-----------------------------------------------------------------------------------------------------
 	
 
 

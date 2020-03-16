@@ -120,14 +120,5 @@ public class CustomerController {
 		}
 	}
 	//-----------------------------------------------------------------------------------------------------
-	public boolean checkPassword(long customerId, String password) {
-		User user = this.usersDao.findById(customerId).get();
-		
-		if(!user.getPassword().equals(password) ) {
-			return false;
-		}
-		return true;
-		
-	}
 	
 }

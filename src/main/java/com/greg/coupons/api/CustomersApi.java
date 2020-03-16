@@ -67,12 +67,5 @@ public class CustomersApi {
 		this.customersController.deleteCustomer(customerId);
 	}
 	//-----------------------------------------------------------------------------------------------------
-	@PostMapping("/checkPassword")
-	public boolean checkPasswordBeforeDeleting(@RequestBody String password, HttpServletRequest request) throws Exception {
-		UserLoginData userLoginData = (UserLoginData) request.getAttribute("userLoginData");
-		long customerId = userLoginData.getId();
-
-		return this.customersController.checkPassword(customerId, password);
-	}
 
 }

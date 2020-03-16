@@ -46,18 +46,19 @@ public class UsersApi {
 	}
 	//-----------------------------------------------------------------------------------------------------
 	// http://localhost:8080/users/12
-	@GetMapping("{userId}")
-	public User getUser(@PathVariable("userId") long id) throws Exception {
-		//need to change to get name String
-		User user = this.usersController.getUser(id);
+	@GetMapping("/usersDetails")
+	public User getUser(HttpServletRequest request) throws Exception {
+			UserLoginData userLoginData = (UserLoginData) request.getAttribute("userLoginData");
+			long userId = userLoginData.getId();
+		User user = this.usersController.getUser(userId);
 		return user;
 	}
 	//-----------------------------------------------------------------------------------------------------
 	// http://localhost:8080/users/12
-	@DeleteMapping("{userId}")
-	public void deleteUser(@PathVariable("userId") long id) throws Exception {
-		this.usersController.deleteUser(id);
-	}
+//	@DeleteMapping("{userId}")
+//	public void deleteUser(@PathVariable("userId") long id) throws Exception {
+//		this.usersController.deleteUser(id);
+//	}
 	//-----------------------------------------------------------------------------------------------------
 	@GetMapping
 	public List<User> getAllUsers() throws Exception{
@@ -75,4 +76,20 @@ public class UsersApi {
 	public void createCompanyUser(@RequestBody User  userRegisterDetails) throws ApplicationException{
 		this.usersController.createAdminUser(userRegisterDetails);
 	}
+	//-----------------------------------------------------------------------------------------------------
+	@DeleteMapping("/deleteUser")
+	public void deleteCustomer(HttpServletRequest request) throws Exception {
+		UserLoginData userLoginData = (UserLoginData) request.getAttribute("userLoginData");
+		long customerId = userLoginData.getId();
+		this.usersController.deleteUser(customerId);
+	}
+	//-----------------------------------------------------------------------------------------------------
+	@PostMapping("/checkPassword")
+	public boolean checkPasswordBeforeDeleting(@RequestBody String password, HttpServletRequest request) throws Exception {
+		UserLoginData userLoginData = (UserLoginData) request.getAttribute("userLoginData");
+		long customerId = userLoginData.getId();
+
+		return this.usersController.checkPassword(customerId, password);
+	}
+
 }
