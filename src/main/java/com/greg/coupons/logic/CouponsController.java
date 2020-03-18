@@ -1,5 +1,6 @@
 package com.greg.coupons.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -9,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.greg.coupons.Utils.ApplicationException;
+import com.greg.coupons.dao.ICompaniesDao;
 import com.greg.coupons.dao.ICouponsDao;
 import com.greg.coupons.dao.IUsersDao;
+import com.greg.coupons.entities.Company;
 import com.greg.coupons.entities.Coupon;
 import com.greg.coupons.entities.User;
 import com.greg.coupons.enums.CompanyAndCouponType;
@@ -24,6 +27,12 @@ public class CouponsController {
 	
 	@Autowired
 	private UsersController usersController;
+	
+	@Autowired
+	private IUsersDao usersDao;
+	
+	@Autowired
+	private ICompaniesDao companiesDao;
 	//-------------constructor----------------------------------------------------------------------------------------
 	public CouponsController() {
 
@@ -106,6 +115,24 @@ public class CouponsController {
 			e.printStackTrace();
 			throw new ApplicationException(e, ErrorTypes.COMPANY_FAILED_TO_GET_ALL, "Failed to get all  company");
 			
+		}
+	}
+	//-----------------------------------------------------------------------------------------------------
+	public List<Coupon> companiesCoupons(long userId) throws ApplicationException{
+		
+		User user = this.usersDao.findById(userId).get();
+		Company company = this.companiesDao.findById(user.getCompanyId()).get();
+		
+		System.out.println("yesss");
+		System.out.println(company);
+		System.out.println(company.getCoupon());
+		try {
+			return company.getCoupon();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, ErrorTypes.COUPON_FAILED_TO_GET, "Failed to get  coupon");
+
 		}
 	}
 }

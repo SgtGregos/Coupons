@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greg.coupons.data.internals.UserLoginData;
+import com.greg.coupons.entities.Company;
 import com.greg.coupons.entities.Coupon;
 import com.greg.coupons.logic.CouponsController;
 
@@ -63,4 +64,13 @@ public class CouponsApi {
 		return this.couponsController.getAllCouponTypes();
 		
 	}
+	//-----------------------------------------------------------------------------------------------------
+		@GetMapping("/companiesCoupons")
+		public List<Coupon> companiesCoupons(HttpServletRequest request) throws Exception{
+			UserLoginData userLoginData = (UserLoginData) request.getAttribute("userLoginData");
+			long userId = userLoginData.getId();
+			
+			return this.couponsController.companiesCoupons(userId);
+			
+		}
 }
