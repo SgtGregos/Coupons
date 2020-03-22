@@ -39,6 +39,11 @@ public class CompaniesController {
 	}
 	//-----------------------------------------------------------------------------------------------------
 	public void createCompany(Company company) throws ApplicationException{
+		if (this.companiesDao.existsByCompanyName(company.getCompanyName()) == true) {
+			throw new ApplicationException( ErrorTypes.COMPANY_FAILED_TO_UPDATE, "company already exists");
+		}
+		
+		
 		try {
 			this.companiesDao.save(company);
 		} catch (Exception e) {
