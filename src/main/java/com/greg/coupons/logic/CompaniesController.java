@@ -82,7 +82,7 @@ public class CompaniesController {
 		
 		User user = this.userDao.findById(userId).get();
 		
-		long companyId = user.getCompanyId();
+		long companyId = user.getCompany().getCompanyId();
 		
 		try {
 			return this.companiesDao.findById(companyId).get();
@@ -119,9 +119,11 @@ public class CompaniesController {
 	//-----------------------------------------------------------------------------------------------------
 	public void createCompanyUser(CompanyUserRegisterDetails companyUserRegisterDetails) throws ApplicationException {
 		
+		Company company = this.companiesDao.findById(companyUserRegisterDetails.getCompanyId()).get();
+		
 		User user = new User();
 		user.setUserType(UserType.COMPANY);
-		user.setCompanyId(companyUserRegisterDetails.getCompanyId());
+		user.setCompany(company);
 		user.setUserPhone(companyUserRegisterDetails.getUserPhone());
 		user.setPassword(companyUserRegisterDetails.getUserRegisterDetails().getPassword());
 		user.setUserName(companyUserRegisterDetails.getUserRegisterDetails().getUserName());

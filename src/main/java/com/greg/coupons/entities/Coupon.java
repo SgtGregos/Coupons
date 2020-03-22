@@ -119,13 +119,14 @@ public class Coupon {
 	public void setCouponPrice(long couponPrice) {
 		this.couponPrice = couponPrice;
 	}
-	
-	//-----------------------------------------------------------------------------------------------------
 	@Override
 	public String toString() {
-		return "Coupon: \n couponName = " + couponName + "\n couponType = " + couponType + "\n couponId = " + couponId
-				+ "\n activationDate = " + couponActivationDate + "\n expireDate = " + couponExpireDate + "\n creationDate = " + couponCreationDate
-				+ " \n " + "-------------";
+		return "Coupon [couponName=" + couponName + ", couponType=" + couponType + ", couponId=" + couponId
+				+ ", couponPrice=" + couponPrice + ", couponActivationDate=" + couponActivationDate
+				+ ", couponExpireDate=" + couponExpireDate + ", couponCreationDate=" + couponCreationDate + ", company="
+				+ company + ", purchase=" + purchase + "]";
 	}
+	
+	
 
 }

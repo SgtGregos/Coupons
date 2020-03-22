@@ -93,9 +93,9 @@ public class Purchase {
 	}
 	@Override
 	public String toString() {
-		return "Purchase [customerId=" + customerId + ", purchaseId=" + purchaseId
-				+ ", purchaseAmount=" + purchaseAmount + ", couponPrice=" + couponPrice + ", purchaseDate="
-				+ purchaseDate + ", couponName=" + couponName + ", coupon=" + coupon + "]";
+		return "Purchase [customerId=" + customerId + ", purchaseId=" + purchaseId + ", purchaseAmount="
+				+ purchaseAmount + ", couponPrice=" + couponPrice + ", purchaseDate=" + purchaseDate + ", couponName="
+				+ couponName + ", coupon=" + coupon + "]";
 	}
 
 

@@ -137,7 +137,13 @@ public class UsersController {
 
 		long id = user.getUserId();
 		UserType tempUserType = user.getUserType();
-		Long companyId = user.getCompanyId();
+		Long companyId;
+		if(user.getCompany() == null) {
+			
+		 companyId = null;
+		}else {
+			companyId = user.getCompany().getCompanyId();
+		}
 		UserLoginData userLoginData = new UserLoginData(id, tempUserType, companyId);
 		// The following 2 lines are equivalent, just 2 techniques on how to convert an int --> String
 		//cacheController.put(token+"", userLoginData);

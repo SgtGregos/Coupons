@@ -29,7 +29,7 @@ public class User implements Serializable{
 	@Column(name="USERNAME", unique=true, nullable=false)
 	private String userName;
 	
-	@Column(name="EMAIL", unique=true, nullable=false)
+	@Column(name="EMAIL", unique=false, nullable=false)
 	private String eMail;
 	
 	@Column(name="PASSWORD", nullable=false)
@@ -42,14 +42,10 @@ public class User implements Serializable{
 	@Column(name="USERPHONE", nullable=true)
 	private long userPhone;
 	
-	@Column(name="COMPANYID", nullable=true)
-	private Long companyId;
 	@JsonIgnore
 	@ManyToOne
 	private Company company;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	private Customer customer;
 	
 	
 	public User() {
@@ -108,12 +104,6 @@ public class User implements Serializable{
 		this.userPhone = userPhone;
 	}
 
-	public Long getCompanyId() {
-		return companyId;
-	}
-	public void setCompanyId(Long companyId) {
-		this.companyId = companyId;
-	}
 	public Company getCompany() {
 		return company;
 	}
@@ -122,13 +112,6 @@ public class User implements Serializable{
 		this.company = company;
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
 
 
 
@@ -136,8 +119,7 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", eMail=" + eMail + ", password=" + password
-				+ ", userType=" + userType + ", userPhone=" + userPhone + ", companyId=" + companyId + ", company="
-				+ company + ", customer=" + customer + "]";
+				+ ", userType=" + userType + ", userPhone=" + userPhone + ", company=" + company + "]";
 	}
 	
 	

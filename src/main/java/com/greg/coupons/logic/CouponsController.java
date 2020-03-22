@@ -46,7 +46,7 @@ public class CouponsController {
 		
 		
 		User user = this.usersController.getUser(customerId);
-		coupon.getCompany().setCompanyId(user.getCompanyId());
+		coupon.getCompany().setCompanyId(user.getCompany().getCompanyId());
 		
 		
 		try {
@@ -121,11 +121,13 @@ public class CouponsController {
 	public List<Coupon> companiesCoupons(long userId) throws ApplicationException{
 		
 		User user = this.usersDao.findById(userId).get();
-		Company company = this.companiesDao.findById(user.getCompanyId()).get();
+		System.out.println(user);
+		Company company = user.getCompany();
+//		Company company = this.companiesDao.findById(user.getCompany().getCompanyId()).get();
 		
-		System.out.println("yesss");
-		System.out.println(company);
-		System.out.println(company.getCoupon());
+//		System.out.println("yesss");
+//		System.out.println(company);
+//		System.out.println(company.getCoupon());
 		try {
 			return company.getCoupon();
 

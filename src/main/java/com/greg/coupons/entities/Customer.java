@@ -6,8 +6,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -18,9 +20,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Customer {
 
 	@Id
-	private long customerId;
-
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private Long customerId;
+	
+	@OneToOne( cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@MapsId
 	private User user;
 
@@ -47,13 +49,6 @@ public class Customer {
 	}
 	
 
-	public long getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
-	}
 
 	public User getUser() {
 		return user;
@@ -105,6 +100,18 @@ public class Customer {
 	public void setMarried(boolean isMarried) {
 		this.isMarried = isMarried;
 	}
+
+
+	public Long getId() {
+		return customerId;
+	}
+
+
+
+	public void setId(Long customerId) {
+		this.customerId = customerId;
+	}
+
 
 
 	@Override

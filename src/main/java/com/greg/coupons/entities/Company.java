@@ -57,12 +57,11 @@ public class Company {
 
 	}
 
-	
-	//-----------------------------------------------------------------------------------------------------
 	@Override
 	public String toString() {
-		return "Company: \n companyName = " + companyName + "\n companyAddress = " + companyAddress + "\n companyType = "
-				+ companyType + "\n companyId = " + companyId + "\n companyPhone = " + companyPhone + " \n " + "-------------";
+		return "Company [companyName=" + companyName + ", companyAddress=" + companyAddress + ", companyType="
+				+ companyType + ", companyId=" + companyId + ", companyPhone=" + companyPhone + ", users=" + users
+				+ ", coupon=" + coupon + "]";
 	}
 
 	public String getCompanyName() {

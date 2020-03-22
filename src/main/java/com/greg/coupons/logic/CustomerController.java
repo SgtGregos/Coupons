@@ -69,13 +69,13 @@ public class CustomerController {
 	}
 	//-----------------------------------------------------------------------------------------------------
 	public void updateCustomer(Customer customer) throws ApplicationException{
-		if (this.customersDao.existsByCustomerId(customer.getCustomerId()) == false) {
+		if (this.customersDao.existsByCustomerId(customer.getUser().getUserId()) == false) {
 			throw new ApplicationException(ErrorTypes.CUSTOMER_FAILED_TO_UPDATE, "cant update customer because customer doenst exists");
 		}
 		if(!validations.isValid(customer.getUser().geteMail())) {
 			throw new ApplicationException(ErrorTypes.GENERAL_ERROR, "Invalid Email");
 		}
-		customer.getUser().setCompanyId(null);
+		customer.getUser().setCompany(null);
 		try {
 			customersDao.save(customer);
 		} catch (Exception e) {
