@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -54,7 +55,8 @@ public class Coupon {
 	private Company company;
 	
 	@JsonIgnore
-	@OneToMany (cascade = CascadeType.REMOVE, fetch = FetchType.EAGER,mappedBy = "coupon")
+	@Transient
+	@OneToMany (cascade = CascadeType.REMOVE, fetch = FetchType.LAZY,mappedBy = "coupon")
 	private List <Purchase> purchase;
 	
 	
