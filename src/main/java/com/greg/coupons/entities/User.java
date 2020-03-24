@@ -42,7 +42,6 @@ public class User implements Serializable{
 	@Column(name="USERPHONE", nullable=true)
 	private long userPhone;
 	
-	@JsonIgnore
 	@ManyToOne
 	private Company company;
 	

@@ -38,14 +38,15 @@ public class CouponsController {
 
 	}
 	//-----------------------------------------------------------------------------------------------------
-	public void createCoupon(Coupon coupon, long customerId) throws ApplicationException{
+	public void createCoupon(Coupon coupon, long userId) throws ApplicationException{
 		if (couponsDao.existsByCouponId(coupon.getCouponId()) == true) {
 			throw new ApplicationException(ErrorTypes.COUPON_FAILED_TO_CREATE, "coupon already exists");
 		}
 		
 		
 		
-		User user = this.usersController.getUser(customerId);
+		User user = this.usersDao.findById(userId).get();
+		System.out.println(user);
 		coupon.getCompany().setCompanyId(user.getCompany().getCompanyId());
 		
 		
@@ -121,15 +122,22 @@ public class CouponsController {
 	public List<Coupon> companiesCoupons(long userId) throws ApplicationException{
 		
 		User user = this.usersDao.findById(userId).get();
-		System.out.println(user);
 		Company company = user.getCompany();
-//		Company company = this.companiesDao.findById(user.getCompany().getCompanyId()).get();
+		System.out.println(user);
+		List<Coupon> couponList = (List<Coupon>) this.couponsDao.findAll();
+		List<Coupon> tempCouponList = new ArrayList<Coupon>();
+		for (Coupon coupon : couponList) {
+			System.out.println("yessss" + coupon + company);
+			if(coupon.getCompany().getCompanyId() == company.getCompanyId()) {
+				tempCouponList.add(coupon);
+			}
+			System.out.println(tempCouponList);
+		}
 		
-//		System.out.println("yesss");
-//		System.out.println(company);
-//		System.out.println(company.getCoupon());
 		try {
-			return company.getCoupon();
+			
+			return tempCouponList;
+//					company.getCoupon();
 
 		} catch (Exception e) {
 			e.printStackTrace();

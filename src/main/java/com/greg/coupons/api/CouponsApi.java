@@ -29,8 +29,8 @@ public class CouponsApi {
 	@PostMapping
 	public void createCoupon(@RequestBody Coupon coupon, HttpServletRequest request) throws Exception{
 		UserLoginData userLoginData = (UserLoginData) request.getAttribute("userLoginData");
-		long customerId = userLoginData.getId();
-		this.couponsController.createCoupon(coupon, customerId);
+		long userId = userLoginData.getId();
+		this.couponsController.createCoupon(coupon, userId);
 	}
 	//-----------------------------------------------------------------------------------------------------
 	//  URL : http://localhost:8080/coupons
